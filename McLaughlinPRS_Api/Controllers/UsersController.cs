@@ -20,11 +20,12 @@ namespace McLaughlinPRS_Api.Controllers
             _context = context;
         }
 
-        // GET: api/Users/username/password   **ADDED 3/13/23
+        // **METHOD 1 - ADDED**
+        // GET: api/Users/username/password   
         [HttpGet("login/{username}/{password}")]
         public async Task<ActionResult<User>> UserLogin(string username, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync
+            var user = await _context.Users.SingleOrDefaultAsync
                                             (x => x.Username == username && x.Password == password);
             if (user == null)
             {

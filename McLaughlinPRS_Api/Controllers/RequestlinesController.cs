@@ -20,7 +20,7 @@ namespace McLaughlinPRS_Api.Controllers
             _context = context;
         }
 
-        // ADDED 3/14/23 - METHOD 6
+        // **METHOD 6, ADDED 3/14/23 
         private async Task<IActionResult> RecalculateRequestTotal(int requestId)
         {
             var request = await _context.Requests.FindAsync(requestId);
@@ -34,10 +34,11 @@ namespace McLaughlinPRS_Api.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+        // ##OPERATION CONFIRMED, 3/14/23
 
-    
-    // GET: api/Requestlines
-    [HttpGet]
+
+        // GET: api/Requestlines
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Requestline>>> GetRequestline()
         {
             return await _context.Requestline.ToListAsync();
