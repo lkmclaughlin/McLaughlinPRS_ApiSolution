@@ -6,8 +6,9 @@ public class Requestline
 {
     public int Id { get; set; }
 
-    [JsonIgnore]
     public int RequestId { get; set; }
+
+    [JsonIgnore]
     public virtual Request? Request { get; set; }
 
     public int ProductId { get; set; }

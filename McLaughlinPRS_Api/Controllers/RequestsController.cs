@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using McLaughlinPRS_Api.Models;
+using System.Xml.Schema;
 
 namespace McLaughlinPRS_Api.Controllers
 {
@@ -31,7 +32,10 @@ namespace McLaughlinPRS_Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Request>> GetRequest(int id)
         {
-            var request = await _context.Requests.FindAsync(id);
+            var request = await _context.Requests
+                                        .Include(x => x.Requestlines)
+                                        .ThenInclude(x => x.Product)
+                                        .SingleOrDefaultAsync(x => x.Id == id);
 
             if (request == null)
             {
@@ -40,6 +44,20 @@ namespace McLaughlinPRS_Api.Controllers
 
             return request;
         }
+/*
+        // PUT: api/requests/review/5  **ADDED 3/14/23
+        [HttpPut("review/{total}/{status}")]
+        public async Task<IActionResult> ReviewReq(decimal total, string status, Request request)
+        {
+            if(total !<= 50)
+            {
+                return request.Status = "REVIEW";
+            }
+
+        }
+
+*/
+
 
         // PUT: api/Requests/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

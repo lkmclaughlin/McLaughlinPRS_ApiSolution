@@ -3,6 +3,7 @@ using McLaughlinPRS_Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace McLaughlinPRS_Api.Migrations
 {
     [DbContext(typeof(McLaughlinDbContext))]
-    partial class McLaughlinDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230314192049_updated JsonIgnore placement in Requestlines")]
+    partial class updatedJsonIgnoreplacementinRequestlines
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

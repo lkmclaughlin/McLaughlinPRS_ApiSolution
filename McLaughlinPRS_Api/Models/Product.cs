@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,6 +29,8 @@ public class Product
 
     public virtual Vendor Vendor { get; set; }
 
+    [JsonIgnore]
+    public virtual ICollection<Requestline>? Requestlines { get; set; }
 
     public Product() { }
 }   

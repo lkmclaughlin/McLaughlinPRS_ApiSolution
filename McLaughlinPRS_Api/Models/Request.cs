@@ -22,10 +22,10 @@ public class Request
     public string DeliveryMode { get; set; } = "Pickup";
 
     [StringLength(10)]
-    private string Status { get; set; } = "NEW";
+    public string Status { get; set; } = "NEW";
 
     [Column(TypeName = "decimal(11,2)")]
-    private decimal Total { get; set; } = 0;
+    public decimal Total { get; set; } = 0;
 
     public int UserId { get; set; }
     public virtual User? User { get; set; }

@@ -20,8 +20,24 @@ namespace McLaughlinPRS_Api.Controllers
             _context = context;
         }
 
-        // GET: api/Requestlines
-        [HttpGet]
+        // ADDED 3/14/23 - METHOD 6
+        private async Task<IActionResult> RecalculateRequestTotal(int requestId)
+        {
+            var request = await _context.Requests.FindAsync(requestId);
+            request.Total = (from rl in _context.Requestlines
+                             join p in _context.Products on rl.ProductId equals p.Id
+                             where rl.RequestId == requestId
+                             select new
+                             {
+                                 lineTotal = rl.Quantity * p.Price
+                             }).Sum(x => x.lineTotal);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+    
+    // GET: api/Requestlines
+    [HttpGet]
         public async Task<ActionResult<IEnumerable<Requestline>>> GetRequestline()
         {
             return await _context.Requestline.ToListAsync();
@@ -56,6 +72,7 @@ namespace McLaughlinPRS_Api.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                await RecalculateRequestTotal(requestline.RequestId);  // **ADDED 3/14/23**
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -79,6 +96,8 @@ namespace McLaughlinPRS_Api.Controllers
         {
             _context.Requestline.Add(requestline);
             await _context.SaveChangesAsync();
+            await RecalculateRequestTotal(requestline.RequestId);
+
 
             return CreatedAtAction("GetRequestline", new { id = requestline.Id }, requestline);
         }
@@ -94,7 +113,9 @@ namespace McLaughlinPRS_Api.Controllers
             }
 
             _context.Requestline.Remove(requestline);
+                var requestId = requestline.RequestId;
             await _context.SaveChangesAsync();
+            await RecalculateRequestTotal(requestId);
 
             return NoContent();
         }
