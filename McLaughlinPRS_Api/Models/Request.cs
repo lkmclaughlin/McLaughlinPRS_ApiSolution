@@ -31,4 +31,6 @@ public class Request
     public virtual User? User { get; set; }
 
     public virtual ICollection<Requestline>? Requestlines { get; set; }
+
+    public Request() { }
 }

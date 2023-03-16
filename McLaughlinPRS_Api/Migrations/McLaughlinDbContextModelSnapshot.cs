@@ -61,7 +61,7 @@ namespace McLaughlinPRS_Api.Migrations
 
                     b.HasIndex("VendorId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("McLaughlinPRS_Api.Models.Request", b =>
@@ -106,7 +106,7 @@ namespace McLaughlinPRS_Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Requests");
+                    b.ToTable("Requests", (string)null);
                 });
 
             modelBuilder.Entity("McLaughlinPRS_Api.Models.Requestline", b =>
@@ -132,7 +132,7 @@ namespace McLaughlinPRS_Api.Migrations
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("Requestlines");
+                    b.ToTable("Requestlines", (string)null);
                 });
 
             modelBuilder.Entity("McLaughlinPRS_Api.Models.User", b =>
@@ -182,7 +182,7 @@ namespace McLaughlinPRS_Api.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("McLaughlinPRS_Api.Models.Vendor", b =>
@@ -236,7 +236,7 @@ namespace McLaughlinPRS_Api.Migrations
                     b.HasIndex("Code")
                         .IsUnique();
 
-                    b.ToTable("Vendors");
+                    b.ToTable("Vendors", (string)null);
                 });
 
             modelBuilder.Entity("McLaughlinPRS_Api.Models.Product", b =>
