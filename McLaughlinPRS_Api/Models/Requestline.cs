@@ -16,4 +16,5 @@ public class Requestline
 
     public int Quantity { get; set; } = 1;
 
+    public Requestline() { }
 }

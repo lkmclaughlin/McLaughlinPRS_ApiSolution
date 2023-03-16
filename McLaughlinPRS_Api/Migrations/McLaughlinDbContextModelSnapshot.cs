@@ -132,7 +132,7 @@ namespace McLaughlinPRS_Api.Migrations
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("Requestline");
+                    b.ToTable("Requestlines");
                 });
 
             modelBuilder.Entity("McLaughlinPRS_Api.Models.User", b =>
@@ -242,7 +242,7 @@ namespace McLaughlinPRS_Api.Migrations
             modelBuilder.Entity("McLaughlinPRS_Api.Models.Product", b =>
                 {
                     b.HasOne("McLaughlinPRS_Api.Models.Vendor", "Vendor")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("VendorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -264,7 +264,7 @@ namespace McLaughlinPRS_Api.Migrations
             modelBuilder.Entity("McLaughlinPRS_Api.Models.Requestline", b =>
                 {
                     b.HasOne("McLaughlinPRS_Api.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("Requestlines")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -280,9 +280,19 @@ namespace McLaughlinPRS_Api.Migrations
                     b.Navigation("Request");
                 });
 
+            modelBuilder.Entity("McLaughlinPRS_Api.Models.Product", b =>
+                {
+                    b.Navigation("Requestlines");
+                });
+
             modelBuilder.Entity("McLaughlinPRS_Api.Models.Request", b =>
                 {
                     b.Navigation("Requestlines");
+                });
+
+            modelBuilder.Entity("McLaughlinPRS_Api.Models.Vendor", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace McLaughlinPRS_Api.Migrations
 {
     [DbContext(typeof(McLaughlinDbContext))]
-    [Migration("20230313175411_init")]
+    [Migration("20230316181805_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,6 +64,77 @@ namespace McLaughlinPRS_Api.Migrations
                     b.HasIndex("VendorId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("McLaughlinPRS_Api.Models.Request", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("DeliveryMode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Justification")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("RejectionReason")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(11,2)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Requests");
+                });
+
+            modelBuilder.Entity("McLaughlinPRS_Api.Models.Requestline", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RequestId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("RequestId");
+
+                    b.ToTable("Requestlines");
                 });
 
             modelBuilder.Entity("McLaughlinPRS_Api.Models.User", b =>
@@ -173,12 +244,57 @@ namespace McLaughlinPRS_Api.Migrations
             modelBuilder.Entity("McLaughlinPRS_Api.Models.Product", b =>
                 {
                     b.HasOne("McLaughlinPRS_Api.Models.Vendor", "Vendor")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("VendorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("McLaughlinPRS_Api.Models.Request", b =>
+                {
+                    b.HasOne("McLaughlinPRS_Api.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("McLaughlinPRS_Api.Models.Requestline", b =>
+                {
+                    b.HasOne("McLaughlinPRS_Api.Models.Product", "Product")
+                        .WithMany("Requestlines")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("McLaughlinPRS_Api.Models.Request", "Request")
+                        .WithMany("Requestlines")
+                        .HasForeignKey("RequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Request");
+                });
+
+            modelBuilder.Entity("McLaughlinPRS_Api.Models.Product", b =>
+                {
+                    b.Navigation("Requestlines");
+                });
+
+            modelBuilder.Entity("McLaughlinPRS_Api.Models.Request", b =>
+                {
+                    b.Navigation("Requestlines");
+                });
+
+            modelBuilder.Entity("McLaughlinPRS_Api.Models.Vendor", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

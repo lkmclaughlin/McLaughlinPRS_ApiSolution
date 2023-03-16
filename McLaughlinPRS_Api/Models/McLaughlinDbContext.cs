@@ -14,6 +14,4 @@ public class McLaughlinDbContext : DbContext
 
     public McLaughlinDbContext(DbContextOptions<McLaughlinDbContext> options): base(options) { }
 
-
-    public DbSet<McLaughlinPRS_Api.Models.Requestline> Requestline { get; set; }
 }

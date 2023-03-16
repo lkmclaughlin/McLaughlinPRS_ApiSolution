@@ -41,14 +41,14 @@ namespace McLaughlinPRS_Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Requestline>>> GetRequestline()
         {
-            return await _context.Requestline.ToListAsync();
+            return await _context.Requestlines.ToListAsync();
         }
 
         // GET: api/Requestlines/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Requestline>> GetRequestline(int id)
         {
-            var requestline = await _context.Requestline.FindAsync(id);
+            var requestline = await _context.Requestlines.FindAsync(id);
 
             if (requestline == null)
             {
@@ -95,7 +95,7 @@ namespace McLaughlinPRS_Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Requestline>> PostRequestline(Requestline requestline)
         {
-            _context.Requestline.Add(requestline);
+            _context.Requestlines.Add(requestline);
             await _context.SaveChangesAsync();
             await RecalculateRequestTotal(requestline.RequestId);
 
@@ -107,14 +107,14 @@ namespace McLaughlinPRS_Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRequestline(int id)
         {
-            var requestline = await _context.Requestline.FindAsync(id);
+            var requestline = await _context.Requestlines.FindAsync(id);
             if (requestline == null)
             {
                 return NotFound();
             }
 
-            _context.Requestline.Remove(requestline);
-                var requestId = requestline.RequestId;
+            _context.Requestlines.Remove(requestline);
+            var requestId = requestline.RequestId;
             await _context.SaveChangesAsync();
             await RecalculateRequestTotal(requestId);
 
@@ -123,7 +123,7 @@ namespace McLaughlinPRS_Api.Controllers
 
         private bool RequestlineExists(int id)
         {
-            return _context.Requestline.Any(e => e.Id == id);
+            return _context.Requestlines.Any(e => e.Id == id);
         }
     }
 }

@@ -31,6 +31,8 @@ public class Vendor
 
     [StringLength(100)]
     public string? Email { get; set; } = null;
+
+    public virtual IEnumerable<Product> Products { get; set; }
      
     public Vendor() { }
 }

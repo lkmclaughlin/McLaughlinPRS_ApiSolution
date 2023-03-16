@@ -46,7 +46,7 @@ namespace McLaughlinPRS_Api.Controllers
         }
 
 
-        // **METHOD 5, ADDED 3/15/23**
+        // **METHOD 5, ADDED 3/15/23
         // GET: /api/requests/reviews/{userId}
         [HttpGet("reviews/{userId}")]
         public async Task<ActionResult<ICollection<Request>>> GetReviews(int userId)
@@ -54,6 +54,7 @@ namespace McLaughlinPRS_Api.Controllers
             return await _context.Requests.Where(x => x.Status == "REVIEW" && x.UserId != userId )                                    
                                           .ToListAsync();
         }
+        // ##OPERATION CONFIRMED, 3/15/23
 
 
         // PUT: api/Requests/5
@@ -88,7 +89,7 @@ namespace McLaughlinPRS_Api.Controllers
         }
 
 
-        // **METHOD 2, ADDED 3/14/23**
+        // **METHOD 2, ADDED 3/14/23
         // PUT: api/requests/review/5 
         [HttpPut("review/{id}")]
         public async Task<IActionResult> ReviewReq(int id, Request request)
@@ -103,8 +104,10 @@ namespace McLaughlinPRS_Api.Controllers
             }
             return await PutRequest(id, request);
         }
+        // ##OPERATION CONFIRMED, 3/15/23
 
-        // **METHOD 3 - ADDED 3/15/23**
+
+        // **METHOD 3 - ADDED 3/15/23
         // PUT: api/requests/approved/5
         [HttpPut("approved/{id}")]
         public async Task<IActionResult> ApprovedReq(int id, Request request)
@@ -112,7 +115,10 @@ namespace McLaughlinPRS_Api.Controllers
             request.Status = "APPROVED";
             return await PutRequest(id, request);
         }
+        // ##OPERATION CONFIRMED, 3/15/23
 
+
+        // **METHOD 4 - ADDED 3/15/23
         // PUT: api/requests/reject/5
         [HttpPut("reject/{id}")]
         public async Task<IActionResult> RejectReq(int id, Request request)
@@ -120,6 +126,7 @@ namespace McLaughlinPRS_Api.Controllers
             request.Status = "REJECT";
             return await PutRequest(id, request);
         }
+        // ##OPERATION CONFIRMED, 3/15/23
 
 
 

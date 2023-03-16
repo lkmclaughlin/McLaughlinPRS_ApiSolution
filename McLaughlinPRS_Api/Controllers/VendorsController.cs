@@ -41,6 +41,17 @@ namespace McLaughlinPRS_Api.Controllers
             return vendor;
         }
 
+/*
+        // EXTRA** 
+        // GET: api/Vendors/po/5
+        [HttpGet("po/{id}")]
+        public async Task<ActionResult<PO>> CreatePo(int id)
+        {
+            // method body goes here ...
+        }
+*/
+
+
         // PUT: api/Vendors/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

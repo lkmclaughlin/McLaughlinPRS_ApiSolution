@@ -20,7 +20,7 @@ namespace McLaughlinPRS_Api.Controllers
             _context = context;
         }
 
-        // **METHOD 1 - ADDED**
+        // **METHOD 1, ADDED 3/13/23**
         // GET: api/Users/username/password   
         [HttpGet("login/{username}/{password}")]
         public async Task<ActionResult<User>> UserLogin(string username, string password)
